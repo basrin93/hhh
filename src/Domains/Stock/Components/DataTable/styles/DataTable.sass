@@ -1,0 +1,282 @@
+/* Переменные */
+$border-light: 1px solid rgba(0, 0, 0, 0.08)
+$hover-bg: rgba($alfa_friendly_background_light, 0.5)
+$arrow-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231976d2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7'%3E%3C/path%3E%3Cpath d='M7 7h10v10'%3E%3C/path%3E%3C/svg%3E"
+
+// Миксин для иконок
+@mixin icon($url, $size: 16px, $opacity: 0.7)
+  content: ''
+  position: absolute
+  width: $size
+  height: $size
+  background-image: url($url)
+  background-size: contain
+  opacity: $opacity
+
+// Миксин для центрирования элементов
+@mixin flex-center
+  display: flex
+  align-items: center
+  justify-content: center
+
+// Миксин для фиксированных колонок
+@mixin fixed-column($left: 0, $z-index: 5)
+  position: sticky !important
+  left: $left
+  z-index: $z-index
+
+// Миксин для заголовков
+@mixin header-styles
+  background: linear-gradient(180deg, $alfa_friendly_background_light 0%, rgba($alfa_friendly_background_light, 0.95) 100%)
+  position: sticky !important
+  top: 0
+
+.table-wrapper
+  position: relative
+
+.improved-table
+  position: relative
+  overflow-x: auto
+  transition: 0.3s ease
+
+  // Убираем стандартные иконки Vuetify при наведении
+  :deep(.v-data-table__tr:hover .v-data-table__tr__expand-icon),
+  :deep(.v-data-table__tr:hover .v-icon--link),
+  :deep(.v-data-table__tbody tr:hover .v-icon)
+    display: none !important
+
+  // Скрываем колонку с чекбоксами
+  &:not(.table-edit-mode)
+    // Скрываем элементы выбора когда не в режиме редактирования
+    :deep(th:first-child),
+    :deep(td:first-child)
+      display: none !important
+      width: 0 !important
+      visibility: hidden !important
+      pointer-events: none !important
+
+    // Убираем обводку выбранных строк
+    :deep(.v-data-table__selected)
+      background-color: transparent !important
+
+    // Фиксированные колонки в обычном режиме
+    :deep(th:nth-child(2))
+      @include fixed-column(0, 16)
+      @include header-styles
+      z-index: 16
+
+    :deep(td:nth-child(2))
+      @include fixed-column(0, 12)
+      background-color: $alfa_friendly_white
+
+    :deep(th:nth-child(3))
+      @include fixed-column(50px, 15)
+      @include header-styles
+      z-index: 15
+
+    :deep(td:nth-child(3))
+      @include fixed-column(50px, 12)
+      background-color: $alfa_friendly_white
+
+  // Стили для индексной колонки
+  :deep(th[data-value="index"]),
+  :deep(td[data-value="index"])
+    width: 50px !important
+    text-align: center
+    padding: 0 8px !important
+    @include fixed-column(0, 2)
+
+  // Режим редактирования
+  &.table-edit-mode
+    // Стили для первой колонки (чекбоксы) в режиме редактирования
+    :deep(th:first-child)
+      @include fixed-column(0, 7)
+      @include header-styles
+      width: 40px !important
+      min-width: 40px !important
+      padding: 0 4px !important
+      visibility: visible !important
+      background-color: $alfa_friendly_background_light
+
+    :deep(td:first-child)
+      @include fixed-column(0, 3)
+      width: 40px !important
+      min-width: 40px !important
+      padding: 0 4px !important
+      visibility: visible !important
+      background-color: $alfa_friendly_white
+
+      &:hover::after
+        display: none
+
+    // Модификация стилей чекбоксов
+    :deep(.v-input--selection-controls),
+    :deep(.v-selection-control)
+      margin: 0
+      padding: 0
+      min-height: 0
+
+    :deep(.v-selection-control__wrapper)
+      margin: 0 auto
+
+    // Смещение индексной колонки в режиме редактирования
+    :deep(th:nth-child(2))
+      @include fixed-column(40px, 6)
+      @include header-styles
+      background-color: $alfa_friendly_background_light
+
+    :deep(td:nth-child(2))
+      @include fixed-column(40px, 2)
+      background-color: $alfa_friendly_white
+
+  :deep(.v-data-table__wrapper)
+    @include thin-scrollbar
+    min-height: 200px
+    overflow-x: auto
+
+  // Заголовки
+  :deep(th)
+    @include header-styles
+    z-index: 3
+    height: 48px
+    padding: 0 16px
+    white-space: nowrap
+    vertical-align: middle
+    border-bottom: $border-light
+    transition: background-color 0.2s
+
+    span
+      color: $alfa_friendly_background_hard
+      font-weight: 600
+      font-size: 13px
+      letter-spacing: 0.3px
+
+    &.sortable-header
+      cursor: pointer
+      position: relative
+
+      &:hover
+        background-color: rgba($alfa_friendly_background_light, 0.8)
+
+    &.active-sort
+      background-color: rgba($alfa_friendly_background_light, 0.9)
+
+      .sort-indicator
+        margin-left: 6px
+        color: $alfa_primary-blue
+        font-weight: bold
+
+    &.inactive-sort
+      .sort-hint
+        margin-left: 6px
+        color: $alfa_friendly_background_medium
+        opacity: 0.6
+        font-size: 12px
+
+        &:hover
+          opacity: 0.9
+
+  // Ячейки
+  :deep(td)
+    font-size: 14px
+    line-height: 1.4
+    position: relative
+    background: $alfa_friendly_white
+    transition: background-color 0.2s
+    height: 52px
+
+  // Показываем стрелку только для сортируемых ячеек
+  :deep(td[data-sortable="true"]):hover::after
+    @include icon($arrow-icon)
+    right: 8px
+    top: 50%
+    transform: translateY(-50%)
+
+  // Строки
+  :deep(.v-data-table__tr)
+    position: relative
+    background-color: $alfa_friendly_white
+
+    &:hover
+      background-color: $hover-bg
+
+      td
+        background-color: transparent
+
+      td[data-value="index"],
+      td:nth-child(2),
+      td:nth-child(3)
+        background-color: $hover-bg !important
+
+      &::after
+        @include icon($arrow-icon)
+        right: 16px
+        top: 50%
+        transform: translateY(-50%)
+
+// Индикаторы сортировки
+:deep(.sort-indicator)
+  display: inline-block
+  margin-left: 6px
+  color: $alfa_primary-blue
+  font-weight: bold
+
+:deep(.sort-hint)
+  display: inline-block
+  margin-left: 6px
+  color: rgba(0, 0, 0, 0.35)
+  transition: color 0.2s, opacity 0.2s
+
+  .sortable-header:hover &
+    color: rgba(0, 0, 0, 0.5)
+    opacity: 0.8
+
+:deep(.v-data-table-header__icon)
+  display: none
+
+// Подсветка поиска
+.search-highlight
+  background-color: $alfa_friendly_yellow
+  padding: 0 2px
+  border-radius: 2px
+
+// Пагинация
+:deep(.v-pagination)
+  .v-pagination__navigation
+    transition: background-color 0.2s
+
+    &:hover
+      background-color: $alfa_friendly_background_light
+
+    &:active
+      background-color: $alfa_friendly_background_medium
+      transform: scale(0.96)
+
+.table-loader-overlay
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  width: 100%
+  height: 100%
+  background: rgba(255, 255, 255, 0.9)
+  z-index: 100
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 8px
+
+  :deep(.v-data-table__wrapper)
+    position: relative
+
+  min-height: calc(100% - 238px)
+  margin-top: 48px
+
+:deep(td):hover
+  text-decoration: underline
+  transition: text-decoration 0.2s
+:deep(td span):hover
+  text-decoration: underline
+:deep(.v-data-footer__icons-before), :deep(.v-data-footer__icons-after)
+  display: none

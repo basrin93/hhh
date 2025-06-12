@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "outDir": "../wwwroot",
+    "target": "es5",
+    "strict": true,
+    "jsx": "preserve",
+    "lib": ["es6", "dom"],
+    "types": [
+      "reflect-metadata",
+      "node",
+      "webpack-env",
+      "vuetify",
+      "copy-to-clipboard",
+      "jest",
+      "@types/jest",
+      "@vue/test-utils"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noLib": false,
+    "preserveConstEnums": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@filters/*": ["src/components/Filters/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "src/**/*.d.ts",
+    "src/shims-vue.d.ts",
+    "src/shims-tsx.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public"
+  ]
+}

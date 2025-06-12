@@ -1,0 +1,146 @@
+$sidebar-width: 400px
+$header-height: 64px
+$footer-height: 72px
+$tab-height: 48px
+$primary-color: #1976d2
+$light-color: #e9eef4
+$border-color: rgba(0, 0, 0, 0.12)
+
+// Стиль для панели с выбранными элементами
+.selected-count-bar
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  padding: 12px 20px
+  background-color: $alfa_friendly_background_light
+  display: flex
+  align-items: center
+  justify-content: space-between
+  z-index: 1001
+  border-top: 1px solid $alfa_friendly_background_medium
+
+  .selected-count
+    font-weight: 500
+    color: $alfa_friendly_background_hard
+
+// Стили для боковой панели
+.mass-edit-sidebar
+  position: fixed
+  top: 0
+  right: -$sidebar-width
+  width: $sidebar-width
+  height: 100vh
+  background: white
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1)
+  z-index: 1000
+  display: flex
+  flex-direction: column
+  transition: right 0.3s ease-in-out
+
+  &.open
+    right: 0
+
+.sidebar-header
+  height: $header-height
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 0 16px
+  border-bottom: 1px solid $border-color
+
+  .header-title
+    font-size: 18px
+    font-weight: 500
+
+.sidebar-tabs
+  display: flex
+  height: $tab-height
+  border-bottom: 1px solid $border-color
+
+  .tab-button
+    flex: 1
+    height: 100%
+    font-size: 14px
+    border-radius: 0
+
+  .active-tab
+    color: $primary-color
+    font-weight: 500
+    position: relative
+
+    &::after
+      content: ''
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      height: 2px
+      background-color: $primary-color
+
+.sidebar-content
+  flex: 1
+  overflow-y: auto
+  padding: 16px
+
+  .loading-container
+    display: flex
+    justify-content: center
+    padding: 20px
+
+  .field-list
+    background-color: $light-color
+    border-radius: 8px
+    padding: 12px
+
+    .field-item
+      padding: 8px 0
+
+  .actions-row
+    display: flex
+    justify-content: flex-end
+    margin-top: 16px
+
+    .next-button
+      min-width: 120px
+
+  .back-button-container
+    display: flex
+    align-items: center
+    margin-bottom: 16px
+
+    .back-button
+      margin-right: 8px
+
+    .values-title
+      font-size: 16px
+      font-weight: 500
+
+  .fields-form
+    .form-field
+      margin-bottom: 20px
+
+      .field-label
+        font-size: 14px
+        font-weight: 500
+        margin-bottom: 8px
+
+.sidebar-footer
+  height: $footer-height
+  padding: 16px
+  border-top: 1px solid $border-color
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: $light-color
+
+  .reset-button, .save-button
+    min-width: 120px
+
+.partial-available
+  font-style: italic
+  color: rgba(0, 0, 0, 0.6)
+  font-size: 12px
+
+:deep(.v-list-item__title)
+  max-width: 320px

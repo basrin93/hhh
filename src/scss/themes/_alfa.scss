@@ -1,0 +1,6 @@
+$material-light: (
+	) !default;
+
+$material-light: map-deep-merge($material-light,
+		('background': $alfa_friendly_background_medium)
+);

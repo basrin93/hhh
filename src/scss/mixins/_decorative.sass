@@ -1,0 +1,32 @@
+@mixin decorative-line($direction: 'vertical', $width: 2px, $height: 100%)
+  content: ''
+  position: absolute
+  background: $alfa_friendly_background_light
+  @if $direction == 'vertical'
+    width: $width
+    height: $height
+  @else
+    width: $height
+    height: $width
+
+@mixin decorative-dot($size: 8px, $border: false)
+  content: ''
+  position: absolute
+  width: $size
+  height: $size
+  border-radius: 50%
+  background: $alfa_friendly_background_light
+  @if $border
+    border: 2px solid $alfa_friendly_background_light
+    background: $alfa_friendly_white
+
+
+@mixin centered-decorative($type: 'line', $width: 2px, $height: 8px)
+  @if $type == 'line'
+    @include decorative-line('vertical', $width, $height)
+    left: 50%
+    transform: translateX(-50%)
+  @else if $type == 'dot'
+    @include decorative-dot($width)
+    left: 50%
+    transform: translateX(-50%)

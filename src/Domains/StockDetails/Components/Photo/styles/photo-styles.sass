@@ -1,0 +1,124 @@
+// Используем существующие миксины для флексов
+// Добавляем стили для фото компонентов
+
+// Стили для основного компонента таба
+@mixin photo-tab-styles
+  .photo-tab
+    padding: 16px
+    height: 65vh
+    overflow-y: auto
+    @include thin-scrollbar
+
+  .property-editor-toolbar
+    margin-bottom: 16px
+    @include flex(row, flex-end)
+
+  .edit-actions
+    @include flex
+    gap: 1rem
+
+  .save-button
+    background-color: $alfa_friendly_background_hard
+    color: $alfa_friendly_white !important
+
+  .cancel-button
+    border: 1px solid rgba(0, 0, 0, 0.12)
+
+  .photo-slots-grid
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))
+    gap: 16px
+    margin-top: 16px
+
+// Стили для отдельного слота
+@mixin photo-slot-styles
+  .photo-slot
+    border: 1px solid $alfa_friendly_background_light
+    border-radius: 8px
+    overflow: hidden
+    @include flex-col
+    background-color: $alfa_friendly_background_ultra_light
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05)
+    transition: all 0.2s ease
+    height: 220px
+
+    &--editing
+      border-color: $alfa_friendly_background_medium
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+
+    &__header
+      padding: 8px 12px
+      background-color: $alfa_friendly_background_light
+      @include flex
+      border-bottom: 1px solid $alfa_friendly_background_light
+
+    &__number
+      font-weight: 600
+      margin-right: 8px
+      color: $alfa_friendly_background_hard
+
+    &__description
+      font-size: 12px
+      color: rgba(0, 0, 0, 0.6)
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
+
+    &__content
+      flex: 1
+      @include flex-center
+      position: relative
+      padding: 8px
+      background-color: #f5f5f5
+
+    &__image-container
+      position: relative
+      width: 100%
+      height: 100%
+      @include flex-center
+
+    &__image
+      max-width: 100%
+      max-height: 100%
+      object-fit: contain
+
+    &__main-btn,
+    &__delete-btn
+      position: absolute
+      z-index: 2
+
+    &__main-btn
+      top: 4px
+      left: 4px
+      background-color: rgba(255, 255, 255, 0.7)
+
+      &--active
+        color: #FFC107 !important
+
+    &__delete-btn
+      top: 4px
+      right: 4px
+      background-color: rgba(255, 255, 255, 0.7)
+
+    &__main-indicator
+      position: absolute
+      top: 4px
+      left: 4px
+      z-index: 1
+
+    &__upload
+      width: 100%
+      height: 100%
+      @include flex-col(center, center)
+      gap: 8px
+
+    &__file-input
+      display: none
+
+    &__empty
+      @include flex-col(center, center)
+      color: rgba(0, 0, 0, 0.4)
+      gap: 8px
+      height: 100%
+      width: 100%
+      font-size: 12px
